@@ -32,30 +32,30 @@
 
             /* Theme colors (light mode defaults) */
             --bg-primary: #ffffff;
-            --bg-secondary: #fafafa;
-            --bg-tertiary: #f4f4f5;
+            --bg-secondary: #f4f4f5;
+            --bg-tertiary: #e4e4e7;
             --bg-inverse: #0a0a0a;
             --text-primary: #0a0a0a;
             --text-secondary: #52525b;
             --text-muted: #71717a;
             --text-inverse: #ffffff;
-            --border-color: #f4f4f5;
-            --border-light: #e4e4e7;
+            --border-color: #e4e4e7;
+            --border-light: #d4d4d8;
             --card-bg: #ffffff;
         }
 
         [data-theme="dark"] {
-            --bg-primary: #1a1a1f;
-            --bg-secondary: #23232a;
-            --bg-tertiary: #2a2a32;
+            --bg-primary: #18181b;
+            --bg-secondary: #1f1f23;
+            --bg-tertiary: #27272a;
             --bg-inverse: #ffffff;
             --text-primary: #f4f4f5;
             --text-secondary: #a1a1aa;
             --text-muted: #71717a;
-            --text-inverse: #0a0a0a;
-            --border-color: #2a2a32;
-            --border-light: #3a3a42;
-            --card-bg: #23232a;
+            --text-inverse: #18181b;
+            --border-color: #3f3f46;
+            --border-light: #52525b;
+            --card-bg: #27272a;
         }
 
         html {
@@ -187,6 +187,128 @@
 
         [data-theme="dark"] .theme-toggle .moon-icon {
             display: none;
+        }
+
+        /* Dark mode section backgrounds for contrast */
+        [data-theme="dark"] .problem {
+            background: #111113;
+        }
+
+        [data-theme="dark"] .solution {
+            background: #18181b;
+        }
+
+        [data-theme="dark"] .pricing {
+            background: #111113;
+        }
+
+        [data-theme="dark"] .faq {
+            background: #18181b;
+        }
+
+        [data-theme="dark"] .pain-card,
+        [data-theme="dark"] .pricing-card,
+        [data-theme="dark"] .faq-item {
+            background: #1f1f23;
+            border-color: #3f3f46;
+        }
+
+        [data-theme="dark"] .feature-visual {
+            background: #1f1f23;
+            border-color: #3f3f46;
+        }
+
+        [data-theme="dark"] .faq-question {
+            background: #1f1f23;
+        }
+
+        [data-theme="dark"] .faq-question:hover {
+            background: #27272a;
+        }
+
+        [data-theme="dark"] .faq-answer {
+            background: #1f1f23;
+        }
+
+        [data-theme="dark"] .faq-support {
+            background: #1f1f23;
+        }
+
+        [data-theme="dark"] .mock-input {
+            background: #27272a;
+            border-color: #3f3f46;
+        }
+
+        [data-theme="dark"] .pricing-card.featured {
+            border-color: var(--purple);
+        }
+
+        [data-theme="dark"] .pricing-badge {
+            background: var(--purple);
+        }
+
+        /* Light mode section backgrounds for contrast */
+        .hero {
+            background: #ffffff;
+        }
+
+        .problem {
+            background: #f4f4f5;
+        }
+
+        .solution {
+            background: #ffffff;
+        }
+
+        .pricing {
+            background: #f4f4f5;
+        }
+
+        .faq {
+            background: #ffffff;
+        }
+
+        .pain-card,
+        .pricing-card,
+        .faq-item {
+            background: #ffffff;
+            border: 1px solid #e4e4e7;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--black);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-visual {
+            background: #f4f4f5;
+            border: 1px solid #e4e4e7;
+        }
+
+        .faq-support {
+            background: #f4f4f5;
+            border: 1px solid #e4e4e7;
+        }
+
+        .pain-icon {
+            background: #f4f4f5;
+            border: 1px solid #e4e4e7;
+        }
+
+        .mock-input {
+            background: #ffffff;
+            border: 1px solid #e4e4e7;
+        }
+
+        .hero-label {
+            background: #f4f4f5;
+            border: 1px solid #e4e4e7;
+        }
+
+        .pain-stat {
+            background: #f4f4f5;
+            border: 1px solid #e4e4e7;
         }
 
         /* ========================================
