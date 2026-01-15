@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lurker - Discord Bot for Twitter Engagement</title>
     <meta name="description" content="Stop rewarding fake engagement. Lurker verifies Twitter usernames, tracks submissions, and rewards your community. Setup in under 2 minutes.">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' stroke='%235B21B6' stroke-width='4' fill='none'/%3E%3Ccircle cx='50' cy='50' r='20' fill='%237C3AED'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 160'%3E%3Cdefs%3E%3ClinearGradient id='h' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%237C3AED'/%3E%3Cstop offset='100%25' stop-color='%235B21B6'/%3E%3C/linearGradient%3E%3ClinearGradient id='s' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%235B21B6'/%3E%3Cstop offset='100%25' stop-color='%233B1578'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M28 4H72Q88 4 88 20V32Q88 44 74 44H28V4Z' fill='url(%23h)'/%3E%3Ccircle cx='62' cy='24' r='14' fill='%23fff'/%3E%3Cpath d='M36 44H64V152Q64 156 60 156H40Q36 156 36 152Z' fill='url(%23s)'/%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -13,6 +13,10 @@
             --black: #0a0a0a;
             --white: #ffffff;
             --purple: #7C3AED;
+            --purple-600: #6D28D9;
+            --purple-700: #5B21B6;
+            --purple-800: #4C1D95;
+            --purple-900: #3B1578;
             --gray-400: #a1a1aa;
             --gray-500: #71717a;
             --gray-600: #52525b;
@@ -55,10 +59,6 @@
         }
         [data-theme="dark"] nav { background: rgba(26, 26, 31, 0.95); }
         .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .nav-logo-icon { width: 32px; height: 32px; position: relative; }
-        .nav-logo-icon .ring { width: 32px; height: 32px; border: 2px solid #0a0a0a; border-radius: 50%; position: absolute; transition: border-color 0.3s; }
-        [data-theme="dark"] .nav-logo-icon .ring { border-color: #f4f4f5; }
-        .nav-logo-icon .center { width: 14px; height: 14px; background: var(--purple); border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
         .nav-logo-text { font-size: 1.25rem; font-weight: 700; color: #0a0a0a; letter-spacing: -0.5px; transition: color 0.3s; }
         [data-theme="dark"] .nav-logo-text { color: #f4f4f5; }
         .nav-links { display: flex; gap: 32px; align-items: center; }
@@ -70,6 +70,18 @@
         .theme-toggle .moon-icon { display: block; }
         [data-theme="dark"] .theme-toggle .sun-icon { display: block; }
         [data-theme="dark"] .theme-toggle .moon-icon { display: none; }
+
+        /* Periscope Logo SVG Styles */
+        .logo-periscope { display: block; }
+        .logo-periscope .head { fill: url(#logoGradHead); }
+        .logo-periscope .lens { fill: var(--bg-primary); transition: fill 0.3s; }
+        .logo-periscope .lens-highlight { fill: rgba(124, 58, 237, 0.2); }
+        .logo-periscope .stem { fill: url(#logoGradStem); }
+        [data-theme="dark"] .logo-periscope .lens { fill: #18181b; }
+        
+        /* Footer logo - always dark lens */
+        .footer-logo .logo-periscope .lens { fill: #0a0a0a; }
+        .footer-logo .logo-periscope .lens-highlight { fill: rgba(255, 255, 255, 0.2); }
 
         /* DARK MODE OVERRIDES */
         [data-theme="dark"] .hero { background: #18181b; }
@@ -243,6 +255,57 @@
         .pricing-guarantee p { font-size: 0.9rem; color: var(--text-muted); transition: color 0.3s; }
         .pricing-guarantee span { color: var(--text-primary); font-weight: 500; transition: color 0.3s; }
 
+        /* AFFILIATE */
+        .affiliate { padding: 100px 48px; background: var(--black); color: var(--white); }
+        .affiliate-inner { max-width: 1100px; margin: 0 auto; }
+        .affiliate-header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
+        .affiliate-header h2 { color: var(--white); }
+        .affiliate-header p { font-size: 1.1rem; color: var(--gray-400); line-height: 1.7; }
+        .affiliate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+        .affiliate-how h3, .affiliate-tiers h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; }
+        .how-steps { display: flex; flex-direction: column; gap: 20px; }
+        .how-step { display: flex; gap: 16px; align-items: flex-start; }
+        .how-step-num { width: 32px; height: 32px; background: var(--purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; }
+        .how-step-content h4 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+        .how-step-content p { font-size: 0.9rem; color: var(--gray-400); line-height: 1.5; }
+        .how-step-content code { background: rgba(124, 58, 237, 0.2); padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; color: var(--purple); font-family: 'SF Mono', monospace; }
+        .tiers-subtitle { font-size: 0.9rem; color: var(--gray-500); margin-bottom: 20px; }
+        .tiers-table { border: 1px solid var(--gray-600); border-radius: var(--radius); overflow: hidden; }
+        .tier-row { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; padding: 14px 16px; border-bottom: 1px solid var(--gray-600); font-size: 0.9rem; }
+        .tier-row:last-child { border-bottom: none; }
+        .tier-row.tier-header { background: rgba(255,255,255,0.05); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray-400); }
+        .tier-row.tier-diamond { background: linear-gradient(90deg, rgba(124, 58, 237, 0.15) 0%, rgba(124, 58, 237, 0.05) 100%); }
+        .tier-name { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+        .tier-icon { font-size: 1rem; }
+        .tier-percent { color: var(--purple); font-weight: 600; }
+        .tier-earnings { color: #22c55e; font-weight: 600; }
+        .tiers-note { font-size: 0.75rem; color: var(--gray-500); margin-top: 12px; }
+        .affiliate-calculator { background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(34, 197, 94, 0.1) 100%); border: 1px solid var(--purple); border-radius: var(--radius); padding: 32px; margin-bottom: 48px; }
+        .calc-content { display: flex; align-items: center; gap: 20px; }
+        .calc-icon { font-size: 2.5rem; }
+        .calc-text h4 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; color: #22c55e; }
+        .calc-text p { font-size: 0.95rem; color: var(--gray-300); }
+        .affiliate-details { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 48px; }
+        .detail-card { background: rgba(255,255,255,0.05); border: 1px solid var(--gray-600); border-radius: var(--radius); padding: 28px; text-align: center; transition: all 0.3s; }
+        .detail-card:hover { border-color: var(--purple); background: rgba(124, 58, 237, 0.1); }
+        .detail-icon { width: 48px; height: 48px; background: rgba(124, 58, 237, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: var(--purple); }
+        .detail-card h4 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+        .detail-card p { font-size: 0.85rem; color: var(--gray-400); line-height: 1.6; }
+        .affiliate-cta { text-align: center; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .affiliate-cta .btn { padding: 16px 32px; font-size: 1rem; }
+        .affiliate-cta-note { margin-top: 16px; font-size: 0.85rem; color: var(--gray-500); }
+        .affiliate-cta-note code { background: rgba(124, 58, 237, 0.2); padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; color: var(--purple); font-family: 'SF Mono', monospace; }
+        
+        @media (max-width: 900px) {
+            .affiliate-grid { grid-template-columns: 1fr; gap: 48px; }
+            .affiliate-details { grid-template-columns: 1fr; }
+            .tier-row { grid-template-columns: 1.2fr 0.8fr 0.8fr 1fr; font-size: 0.8rem; padding: 12px; }
+            .calc-content { flex-direction: column; text-align: center; }
+        }
+        @media (max-width: 768px) {
+            .affiliate { padding: 80px 24px; }
+        }
+
         /* FAQ */
         .faq { padding: 100px 48px; transition: background 0.3s; }
         .faq-inner { max-width: 800px; margin: 0 auto; }
@@ -276,9 +339,6 @@
         footer { padding: 48px; background: var(--black); border-top: 1px solid rgba(255,255,255,0.1); }
         .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
         .footer-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .footer-logo-icon { width: 32px; height: 32px; position: relative; }
-        .footer-logo-icon .ring { width: 32px; height: 32px; border: 2px solid var(--gray-600); border-radius: 50%; position: absolute; }
-        .footer-logo-icon .center { width: 14px; height: 14px; background: var(--purple); border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
         .footer-logo-text { font-size: 1.1rem; font-weight: 700; color: var(--white); }
         .footer-links { display: flex; gap: 32px; }
         .footer-links a { font-size: 0.9rem; color: var(--gray-500); text-decoration: none; transition: color 0.2s; }
@@ -316,14 +376,35 @@
     </style>
 </head>
 <body>
+    <!-- SVG Gradient Definitions (hidden, referenced by logos) -->
+    <svg width="0" height="0" style="position:absolute">
+        <defs>
+            <linearGradient id="logoGradHead" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#7C3AED"/>
+                <stop offset="100%" stop-color="#5B21B6"/>
+            </linearGradient>
+            <linearGradient id="logoGradStem" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#5B21B6"/>
+                <stop offset="100%" stop-color="#3B1578"/>
+            </linearGradient>
+        </defs>
+    </svg>
+
     <nav>
         <a href="#" class="nav-logo">
-            <div class="nav-logo-icon"><div class="ring"></div><div class="center"></div></div>
+            <!-- Periscope Logo - Nav Size (20x32) -->
+            <svg class="logo-periscope" width="20" height="32" viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="head" d="M28 4H72Q88 4 88 20V32Q88 44 74 44H28V4Z" fill="url(#logoGradHead)"/>
+                <circle class="lens" cx="62" cy="24" r="14"/>
+                <circle class="lens-highlight" cx="57" cy="19" r="5"/>
+                <path class="stem" d="M36 44H64V152Q64 156 60 156H40Q36 156 36 152Z" fill="url(#logoGradStem)"/>
+            </svg>
             <span class="nav-logo-text">Lurker</span>
         </a>
         <div class="nav-links">
             <a href="#features">Features</a>
             <a href="#pricing">Pricing</a>
+            <a href="#affiliate">Affiliates</a>
             <a href="#faq">FAQ</a>
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                 <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -479,7 +560,7 @@
                     <p class="pricing-desc">For small communities</p>
                     <div class="pricing-price"><span class="pricing-amount">$0</span><span class="pricing-period">/ month</span></div>
                     <ul class="pricing-features">
-                        <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Up to 200 submissions/month</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Up to 200 submissions total</li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Manual verification</li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Approval queue</li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Leaderboard</li>
@@ -503,6 +584,132 @@
                 </div>
             </div>
             <div class="pricing-guarantee"><p><span>7-day free trial</span> on Starter. No credit card required. Pay with crypto.</p></div>
+        </div>
+    </section>
+
+    <section class="affiliate" id="affiliate">
+        <div class="affiliate-inner">
+            <div class="affiliate-header">
+                <p class="section-label">Affiliate Program</p>
+                <h2>Earn up to 30% commission on every referral</h2>
+                <p>Share Lurker with other Discord communities and earn recurring commissions for 6 months per referral.</p>
+            </div>
+            
+            <div class="affiliate-grid">
+                <div class="affiliate-how">
+                    <h3>How It Works</h3>
+                    <div class="how-steps">
+                        <div class="how-step">
+                            <div class="how-step-num">1</div>
+                            <div class="how-step-content">
+                                <h4>Join the Program</h4>
+                                <p>Run <code>/affiliate</code> in the Lurker Discord to get your unique referral code.</p>
+                            </div>
+                        </div>
+                        <div class="how-step">
+                            <div class="how-step-num">2</div>
+                            <div class="how-step-content">
+                                <h4>Share Your Code</h4>
+                                <p>Promote Lurker to Discord server owners and share your affiliate code.</p>
+                            </div>
+                        </div>
+                        <div class="how-step">
+                            <div class="how-step-num">3</div>
+                            <div class="how-step-content">
+                                <h4>They Save 10%</h4>
+                                <p>When someone uses your code, they get 10% off their first payment.</p>
+                            </div>
+                        </div>
+                        <div class="how-step">
+                            <div class="how-step-num">4</div>
+                            <div class="how-step-content">
+                                <h4>You Earn Commission</h4>
+                                <p>Earn commission on their payments for 6 months — recurring!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="affiliate-tiers">
+                    <h3>Commission Tiers</h3>
+                    <p class="tiers-subtitle">The more referrals you bring, the higher your rate!</p>
+                    <div class="tiers-table">
+                        <div class="tier-row tier-header">
+                            <span>Tier</span>
+                            <span>Referrals</span>
+                            <span>Commission</span>
+                            <span>Per Referral*</span>
+                        </div>
+                        <div class="tier-row">
+                            <span class="tier-name"><span class="tier-icon">🥉</span> Bronze</span>
+                            <span>1 - 5</span>
+                            <span class="tier-percent">15%</span>
+                            <span class="tier-earnings">$25.67</span>
+                        </div>
+                        <div class="tier-row">
+                            <span class="tier-name"><span class="tier-icon">🥈</span> Silver</span>
+                            <span>6 - 15</span>
+                            <span class="tier-percent">20%</span>
+                            <span class="tier-earnings">$34.22</span>
+                        </div>
+                        <div class="tier-row">
+                            <span class="tier-name"><span class="tier-icon">🥇</span> Gold</span>
+                            <span>16 - 30</span>
+                            <span class="tier-percent">25%</span>
+                            <span class="tier-earnings">$42.78</span>
+                        </div>
+                        <div class="tier-row tier-diamond">
+                            <span class="tier-name"><span class="tier-icon">💎</span> Diamond</span>
+                            <span>31+</span>
+                            <span class="tier-percent">30%</span>
+                            <span class="tier-earnings">$51.33</span>
+                        </div>
+                    </div>
+                    <p class="tiers-note">*Total earnings over 6 months per referral (based on $29/month)</p>
+                </div>
+            </div>
+            
+            <div class="affiliate-calculator">
+                <div class="calc-content">
+                    <div class="calc-icon">💰</div>
+                    <div class="calc-text">
+                        <h4>Potential Earnings: $2,566.50</h4>
+                        <p>50 referrals × $51.33 each = $2,566.50 over 6 months as a Diamond affiliate</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="affiliate-details">
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
+                    <h4>Monthly Payouts</h4>
+                    <p>Get paid every month once you hit the $25 minimum threshold.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 18V6"></path></svg>
+                    </div>
+                    <h4>Flexible Payments</h4>
+                    <p>Choose crypto (USDT, USDC, BTC, ETH) or PayPal for payouts.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
+                    </div>
+                    <h4>Track Progress</h4>
+                    <p>Run /affiliate anytime to view your dashboard, earnings, and tier progress.</p>
+                </div>
+            </div>
+            
+            <div class="affiliate-cta">
+                <a href="#" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg>
+                    Join Affiliate Program
+                </a>
+                <p class="affiliate-cta-note">Run <code>/affiliate</code> in the Lurker Discord server to get started</p>
+            </div>
         </div>
     </section>
 
@@ -540,7 +747,7 @@
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">What happens when I hit 200 submissions on Free?<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
-                    <div class="faq-answer">You'll get a notification when you're approaching the limit. New submissions pause until the next month or until you upgrade to Starter for unlimited submissions.</div>
+                    <div class="faq-answer">You'll get a notification when you're approaching the limit. New submissions pause until you upgrade to Starter for unlimited submissions.</div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">How do I get support?<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
@@ -569,8 +776,17 @@
 
     <footer>
         <div class="footer-inner">
-            <a href="#" class="footer-logo"><div class="footer-logo-icon"><div class="ring"></div><div class="center"></div></div><span class="footer-logo-text">Lurker</span></a>
-            <div class="footer-links"><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></div>
+            <a href="#" class="footer-logo">
+                <!-- Periscope Logo - Footer Size (18x29) -->
+                <svg class="logo-periscope" width="18" height="29" viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="head" d="M28 4H72Q88 4 88 20V32Q88 44 74 44H28V4Z" fill="url(#logoGradHead)"/>
+                    <circle class="lens" cx="62" cy="24" r="14"/>
+                    <circle class="lens-highlight" cx="57" cy="19" r="5"/>
+                    <path class="stem" d="M36 44H64V152Q64 156 60 156H40Q36 156 36 152Z" fill="url(#logoGradStem)"/>
+                </svg>
+                <span class="footer-logo-text">Lurker</span>
+            </a>
+            <div class="footer-links"><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#affiliate">Affiliates</a><a href="#faq">FAQ</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></div>
             <p class="footer-copy">© 2026 Lurker. All rights reserved.</p>
         </div>
     </footer>
