@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lurker - Discord Bot for Twitter Engagement</title>
+    <meta name="description" content="Stop rewarding fake engagement. Lurker verifies Twitter usernames, tracks submissions, and rewards your community. Setup in under 2 minutes.">
+    <meta name="keywords" content="Discord bot, Twitter engagement, Web3, community management, raid bot">
+    <meta property="og:title" content="Lurker - Discord Bot for Twitter Engagement">
+    <meta property="og:description" content="Stop rewarding fake engagement. Verify usernames, track submissions, reward your community.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' stroke='%235B21B6' stroke-width='4' fill='none'/%3E%3Ccircle cx='50' cy='50' r='20' fill='%237C3AED'/%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --purple: #7C3AED;
+            --gray-50: #fafafa;
+            --gray-100: #f4f4f5;
+            --gray-400: #a1a1aa;
+            --gray-500: #71717a;
+            --gray-600: #52525b;
+            --radius: 8px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ========================================
+           NAVIGATION
+        ======================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-logo-icon {
+            width: 32px;
+            height: 32px;
+            position: relative;
+        }
+
+        .nav-logo-icon .ring {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--black);
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .nav-logo-icon .center {
+            width: 14px;
+            height: 14px;
+            background: var(--purple);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .nav-logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--black);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--gray-600);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--black);
+        }
+
+        /* ========================================
+           BUTTONS
+        ======================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.85;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--black);
+            border: 1px solid var(--gray-100);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gray-400);
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .btn-white:hover {
+            opacity: 0.9;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--gray-600);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--gray-400);
+        }
+
+        /* ========================================
+           SECTION 1: HERO
+        ======================================== */
+        .hero {
+            padding: 140px 48px 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-100);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            margin-bottom: 32px;
+        }
+
+        .hero-label-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--purple);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 720px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.75rem);
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--black);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray-500);
+            max-width: 540px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 64px;
+        }
+
+        .social-proof {
+            display: flex;
+            gap: 48px;
+            padding-top: 48px;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .proof-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .proof-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--black);
+            letter-spacing: -1px;
+        }
+
+        .proof-label {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+        }
+
+        /* ========================================
+           SECTION 2: PROBLEM
+        ======================================== */
+        .problem {
+            padding: 100px 48px;
+            background: var(--gray-50);
+        }
+
+        .problem-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .problem-header {
+            max-width: 600px;
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--purple);
+            margin-bottom: 16px;
+        }
+
+        .problem h2,
+        .solution h2,
+        .how-it-works h2,
+        .pricing h2,
+        .faq h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--black);
+        }
+
+        .problem-header p,
+        .solution-header p {
+            font-size: 1.1rem;
+            color: var(--gray-500);
+            line-height: 1.7;
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .pain-card {
+            background: var(--white);
+            border: 1px solid var(--gray-100);
+            border-radius: var(--radius);
+            padding: 32px;
+        }
+
+        .pain-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--gray-600);
+        }
+
+        .pain-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--black);
+        }
+
+        .pain-card p {
+            font-size: 0.95rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        .pain-stat {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 6px 12px;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray-600);
+        }
+
+        /* ========================================
+           SECTION 3: SOLUTION
+        ======================================== */
+        .solution {
+            padding: 100px 48px;
+        }
+
+        .solution-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .solution-header {
+            max-width: 600px;
+            margin-bottom: 72px;
+        }
+
+        .feature-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            padding: 64px 0;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .feature-row:last-child {
+            padding-bottom: 0;
+        }
+
+        .feature-content {
+            max-width: 440px;
+        }
+
+        .feature-number {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--purple);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .feature-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            color: var(--black);
+        }
+
+        .feature-content p {
+            font-size: 1rem;
+            color: var(--gray-500);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .feature-benefit {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--black);
+        }
+
+        .feature-benefit svg {
+            color: var(--purple);
+            flex-shrink: 0;
+        }
+
+        .feature-visual {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-100);
+            border-radius: var(--radius);
+            padding: 40px;
+            min-height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Mock UI Elements */
+        .mock-verification {
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .mock-input {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--white);
+            border: 1px solid var(--gray-100);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 16px;
+        }
+
+        .mock-input span {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+        }
+
+        .mock-input .handle {
+            color: var(--black);
+            font-weight: 500;
+        }
+
+        .mock-result {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: #ecfdf5;
+            border-radius: var(--radius);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #065f46;
+        }
+
+        .mock-result.invalid {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        .mock-result svg {
+            flex-shrink: 0;
+        }
+
+        .mock-queue {
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .mock-queue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .mock-queue-header span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .mock-queue-header .count {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            background: var(--gray-100);
+            border-radius: 100px;
+            color: var(--gray-600);
+        }
+
+        .mock-queue-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .mock-queue-item:last-child {
+            border-bottom: none;
+        }
+
+        .mock-queue-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mock-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-100);
+            border-radius: 50%;
+        }
+
+        .mock-queue-user span {
+            font-size: 0.9rem;
+            color: var(--black);
+        }
+
+        .mock-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mock-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        .mock-btn.approve {
+            background: #ecfdf5;
+            color: #065f46;
+        }
+
+        .mock-btn.reject {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        .mock-leaderboard {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .mock-leaderboard-header {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .mock-leader-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+        }
+
+        .mock-rank {
+            width: 24px;
+            height: 24px;
+            background: var(--gray-100);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-600);
+        }
+
+        .mock-rank.first {
+            background: var(--purple);
+            color: var(--white);
+        }
+
+        .mock-leader-info {
+            flex: 1;
+        }
+
+        .mock-leader-info .name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--black);
+        }
+
+        .mock-leader-info .streak {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .mock-posts {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .feature-row.reverse {
+            direction: rtl;
+        }
+
+        .feature-row.reverse > * {
+            direction: ltr;
+        }
+
+        /* ========================================
+           SECTION 4: HOW IT WORKS
+        ======================================== */
+        .how-it-works {
+            padding: 100px 48px;
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .how-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .how-header {
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto 72px;
+        }
+
+        .how-it-works h2 {
+            color: var(--white);
+        }
+
+        .how-header p {
+            font-size: 1rem;
+            color: var(--gray-400);
+            line-height: 1.7;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            position: relative;
+        }
+
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            top: 28px;
+            left: calc(12.5% + 28px);
+            right: calc(12.5% + 28px);
+            height: 1px;
+            background: var(--gray-600);
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            background: var(--black);
+            border: 1px solid var(--gray-600);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 auto 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step:first-child .step-number {
+            background: var(--purple);
+            border-color: var(--purple);
+        }
+
+        .step h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            font-size: 0.9rem;
+            color: var(--gray-400);
+            line-height: 1.6;
+        }
+
+        .step-time {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 4px 10px;
+            background: rgba(124, 58, 237, 0.15);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--purple);
+        }
+
+        .how-cta {
+            text-align: center;
+            margin-top: 72px;
+            padding-top: 48px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .how-cta p {
+            font-size: 1rem;
+            color: var(--gray-400);
+            margin-bottom: 24px;
+        }
+
+        /* ========================================
+           SECTION 5: PRICING
+        ======================================== */
+        .pricing {
+            padding: 100px 48px;
+            background: var(--gray-50);
+        }
+
+        .pricing-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-header {
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto 64px;
+        }
+
+        .pricing-header p {
+            font-size: 1rem;
+            color: var(--gray-500);
+            line-height: 1.7;
+        }
+
+        /* Billing Toggle */
+        .billing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .toggle-label {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--gray-500);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+        .toggle-label.active {
+            color: var(--black);
+        }
+
+        .toggle-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            background: var(--purple);
+            color: var(--white);
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .toggle-switch {
+            width: 52px;
+            height: 28px;
+            background: var(--gray-100);
+            border: none;
+            border-radius: 100px;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s;
+        }
+
+        .toggle-switch.active {
+            background: var(--black);
+        }
+
+        .toggle-knob {
+            width: 22px;
+            height: 22px;
+            background: var(--white);
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .toggle-switch.active .toggle-knob {
+            transform: translateX(24px);
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            border: 1px solid var(--gray-100);
+            border-radius: var(--radius);
+            padding: 40px;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--black);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 32px;
+            background: var(--black);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: var(--radius);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .pricing-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pricing-desc {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            margin-bottom: 24px;
+        }
+
+        .pricing-price {
+            margin-bottom: 32px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .pricing-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            color: var(--black);
+        }
+
+        .pricing-period {
+            font-size: 1rem;
+            color: var(--gray-500);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+
+        .pricing-features li svg {
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: var(--black);
+        }
+
+        .pricing-features li.disabled {
+            color: var(--gray-400);
+        }
+
+        .pricing-features li.disabled svg {
+            color: var(--gray-400);
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .pricing-guarantee {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .pricing-guarantee p {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+        }
+
+        .pricing-guarantee span {
+            color: var(--black);
+            font-weight: 500;
+        }
+
+        /* ========================================
+           SECTION 6: FAQ
+        ======================================== */
+        .faq {
+            padding: 100px 48px;
+        }
+
+        .faq-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .faq-header p {
+            font-size: 1rem;
+            color: var(--gray-500);
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .faq-item {
+            border: 1px solid var(--gray-100);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 20px 24px;
+            background: var(--white);
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--black);
+            transition: background 0.2s;
+        }
+
+        .faq-question:hover {
+            background: var(--gray-50);
+        }
+
+        .faq-question svg {
+            flex-shrink: 0;
+            color: var(--gray-400);
+            transition: transform 0.2s;
+        }
+
+        .faq-item.open .faq-question svg {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 24px 20px;
+            font-size: 0.95rem;
+            color: var(--gray-600);
+            line-height: 1.7;
+            display: none;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        .faq-support {
+            text-align: center;
+            margin-top: 64px;
+            padding: 40px;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+        }
+
+        .faq-support p {
+            font-size: 1rem;
+            color: var(--gray-600);
+            margin-bottom: 16px;
+        }
+
+        .faq-support a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--black);
+            text-decoration: none;
+        }
+
+        .faq-support a:hover {
+            color: var(--purple);
+        }
+
+        /* ========================================
+           SECTION 7: FINAL CTA
+        ======================================== */
+        .final-cta {
+            padding: 100px 48px;
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .cta-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-inner h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .cta-inner > p {
+            font-size: 1.1rem;
+            color: var(--gray-400);
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .cta-buttons .btn {
+            padding: 16px 28px;
+            font-size: 1rem;
+        }
+
+        .trust-row {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding-top: 48px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--gray-500);
+        }
+
+        .trust-item svg {
+            color: var(--gray-500);
+        }
+
+        /* ========================================
+           FOOTER
+        ======================================== */
+        footer {
+            padding: 48px;
+            background: var(--black);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .footer-logo-icon {
+            width: 32px;
+            height: 32px;
+            position: relative;
+        }
+
+        .footer-logo-icon .ring {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--gray-600);
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .footer-logo-icon .center {
+            width: 14px;
+            height: 14px;
+            background: var(--purple);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .footer-logo-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-links a {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-copy {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE
+        ======================================== */
+        @media (max-width: 900px) {
+            .pain-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-row,
+            .feature-row.reverse {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                direction: ltr;
+            }
+
+            .feature-content {
+                max-width: 100%;
+            }
+
+            .steps-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 48px 32px;
+            }
+
+            .steps-container::before {
+                display: none;
+            }
+
+            .pricing-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 12px 24px;
+            }
+
+            .nav-links a:not(.btn) {
+                display: none;
+            }
+
+            .hero {
+                padding: 120px 24px 60px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .social-proof {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .problem,
+            .solution,
+            .how-it-works,
+            .pricing,
+            .faq,
+            .final-cta {
+                padding: 80px 24px;
+            }
+
+            .steps-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .faq-question {
+                padding: 16px 20px;
+            }
+
+            .faq-answer {
+                padding: 0 20px 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+            }
+
+            .trust-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+            }
+
+            footer {
+                padding: 32px 24px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+    ======================================== -->
+    <nav>
+        <a href="#" class="nav-logo">
+            <div class="nav-logo-icon">
+                <div class="ring"></div>
+                <div class="center"></div>
+            </div>
+            <span class="nav-logo-text">Lurker</span>
+        </a>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+            <a href="https://discord.com/oauth2/authorize?client_id=1455733741585563658&permissions=268446736&integration_type=0&scope=bot+applications.commands" class="btn btn-primary">Add to Discord</a>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         SECTION 1: HERO
+    ======================================== -->
+    <section class="hero">
+        <div class="hero-label">
+            <span class="hero-label-dot"></span>
+            Trusted by 50+ Web3 communities
+        </div>
+        <div class="hero-content">
+            <h1>Stop rewarding fake engagement.</h1>
+            <p>Lurker verifies Twitter usernames before your team wastes hours on manual checks. One bot. Zero fake submissions.</p>
+            <div class="hero-buttons">
+                <a href="https://discord.com/oauth2/authorize?client_id=1455733741585563658&permissions=268446736&integration_type=0&scope=bot+applications.commands" class="btn btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                    Add to Discord — Free
+                </a>
+                <a href="#features" class="btn btn-secondary">See how it works</a>
+            </div>
+        </div>
+        <div class="social-proof">
+            <div class="proof-item">
+                <span class="proof-value">50+</span>
+                <span class="proof-label">Active servers</span>
+            </div>
+            <div class="proof-item">
+                <span class="proof-value">10,000+</span>
+                <span class="proof-label">Submissions verified</span>
+            </div>
+            <div class="proof-item">
+                <span class="proof-value">99.9%</span>
+                <span class="proof-label">Uptime</span>
+            </div>
+            <div class="proof-item">
+                <span class="proof-value">&lt;2min</span>
+                <span class="proof-label">Setup time</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 2: PROBLEM
+    ======================================== -->
+    <section class="problem">
+        <div class="problem-inner">
+            <div class="problem-header">
+                <p class="section-label">The Problem</p>
+                <h2>Running Twitter raids shouldn't feel like a second job.</h2>
+                <p>Most community managers spend hours checking submissions manually. Fake accounts slip through. Real contributors get frustrated. Sound familiar?</p>
+            </div>
+
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <div class="pain-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    </div>
+                    <h3>Fake usernames waste your time</h3>
+                    <p>People submit random handles, typos, or accounts that don't exist. You spend hours verifying each one manually.</p>
+                    <span class="pain-stat">~40% of submissions are invalid</span>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 6v6l4 2"></path></svg>
+                    </div>
+                    <h3>Manual review doesn't scale</h3>
+                    <p>As your community grows, so does the submission pile. What worked with 50 members breaks at 500.</p>
+                    <span class="pain-stat">3+ hours/week on manual checks</span>
+                </div>
+
+                <div class="pain-card">
+                    <div class="pain-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="17" y1="11" x2="22" y2="11"></line></svg>
+                    </div>
+                    <h3>Good contributors leave</h3>
+                    <p>When cheaters get the same rewards as real participants, your best community members lose motivation and move on.</p>
+                    <span class="pain-stat">2x churn in unfair systems</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 3: SOLUTION
+    ======================================== -->
+    <section class="solution" id="features">
+        <div class="solution-inner">
+            <div class="solution-header">
+                <p class="section-label">The Solution</p>
+                <h2>Automate verification. Keep control.</h2>
+                <p>Lurker handles the tedious checks so you can focus on growing your community. Every feature built for one goal: fair, verifiable engagement.</p>
+            </div>
+
+            <!-- Feature 1: Username Verification -->
+            <div class="feature-row">
+                <div class="feature-content">
+                    <p class="feature-number">01</p>
+                    <h3>Instant username verification</h3>
+                    <p>When someone submits a Twitter handle, Lurker checks if it's a real account in seconds. Invalid handles get flagged automatically.</p>
+                    <div class="feature-benefit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Eliminates 40% of invalid submissions instantly
+                    </div>
+                </div>
+                <div class="feature-visual">
+                    <div class="mock-verification">
+                        <div class="mock-input">
+                            <span>@</span>
+                            <span class="handle">cryptobuilder_</span>
+                        </div>
+                        <div class="mock-result">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            Verified — Account exists
+                        </div>
+                        <div style="height: 12px;"></div>
+                        <div class="mock-input">
+                            <span>@</span>
+                            <span class="handle">xxy_fake_2847</span>
+                        </div>
+                        <div class="mock-result invalid">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                            Invalid — Account not found
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 2: Manual Approval -->
+            <div class="feature-row reverse">
+                <div class="feature-content">
+                    <p class="feature-number">02</p>
+                    <h3>One-click approval queue</h3>
+                    <p>All verified submissions land in a clean queue. Approve or reject with a single click. No spreadsheets, no copy-pasting.</p>
+                    <div class="feature-benefit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Review 50 submissions in under 5 minutes
+                    </div>
+                </div>
+                <div class="feature-visual">
+                    <div class="mock-queue">
+                        <div class="mock-queue-header">
+                            <span>Pending Review</span>
+                            <span class="count">12 new</span>
+                        </div>
+                        <div class="mock-queue-item">
+                            <div class="mock-queue-user">
+                                <div class="mock-avatar"></div>
+                                <span>@alice_web3</span>
+                            </div>
+                            <div class="mock-actions">
+                                <button class="mock-btn approve">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </button>
+                                <button class="mock-btn reject">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mock-queue-item">
+                            <div class="mock-queue-user">
+                                <div class="mock-avatar"></div>
+                                <span>@defi_maxi</span>
+                            </div>
+                            <div class="mock-actions">
+                                <button class="mock-btn approve">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </button>
+                                <button class="mock-btn reject">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mock-queue-item">
+                            <div class="mock-queue-user">
+                                <div class="mock-avatar"></div>
+                                <span>@nft_collector</span>
+                            </div>
+                            <div class="mock-actions">
+                                <button class="mock-btn approve">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </button>
+                                <button class="mock-btn reject">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature 3: Streaks & Leaderboard -->
+            <div class="feature-row">
+                <div class="feature-content">
+                    <p class="feature-number">03</p>
+                    <h3>Streaks and leaderboards</h3>
+                    <p>Reward consistency, not just volume. Weekly streaks motivate repeat engagement. Leaderboards create healthy competition.</p>
+                    <div class="feature-benefit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Communities see 3x more repeat engagement
+                    </div>
+                </div>
+                <div class="feature-visual">
+                    <div class="mock-leaderboard">
+                        <div class="mock-leaderboard-header">Weekly Leaderboard</div>
+                        <div class="mock-leader-item">
+                            <div class="mock-rank first">1</div>
+                            <div class="mock-avatar"></div>
+                            <div class="mock-leader-info">
+                                <div class="name">@alice_web3</div>
+                                <div class="streak">🔥 12 week streak</div>
+                            </div>
+                            <div class="mock-posts">48 posts</div>
+                        </div>
+                        <div class="mock-leader-item">
+                            <div class="mock-rank">2</div>
+                            <div class="mock-avatar"></div>
+                            <div class="mock-leader-info">
+                                <div class="name">@defi_maxi</div>
+                                <div class="streak">🔥 8 week streak</div>
+                            </div>
+                            <div class="mock-posts">35 posts</div>
+                        </div>
+                        <div class="mock-leader-item">
+                            <div class="mock-rank">3</div>
+                            <div class="mock-avatar"></div>
+                            <div class="mock-leader-info">
+                                <div class="name">@nft_collector</div>
+                                <div class="streak">🔥 5 week streak</div>
+                            </div>
+                            <div class="mock-posts">28 posts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 4: HOW IT WORKS
+    ======================================== -->
+    <section class="how-it-works">
+        <div class="how-inner">
+            <div class="how-header">
+                <p class="section-label">How It Works</p>
+                <h2>Live in under 2 minutes</h2>
+                <p>No complicated setup. No technical knowledge required. Just four simple steps.</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Add to Discord</h3>
+                    <p>Click the button, select your server, and authorize permissions.</p>
+                    <span class="step-time">10 seconds</span>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Run /quickstart</h3>
+                    <p>One command creates your submission channel and configures roles.</p>
+                    <span class="step-time">30 seconds</span>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Members submit</h3>
+                    <p>An embed appears where members submit their Twitter username, posts, and space links.</p>
+                    <span class="step-time">Automatic</span>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Review & reward</h3>
+                    <p>Approve verified submissions. Leaderboards and streaks update automatically.</p>
+                    <span class="step-time">Ongoing</span>
+                </div>
+            </div>
+
+            <div class="how-cta">
+                <p>Ready to stop chasing fake submissions?</p>
+                <a href="https://discord.com/oauth2/authorize?client_id=1455733741585563658&permissions=268446736&integration_type=0&scope=bot+applications.commands" class="btn btn-white">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                    Add Lurker to Discord
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 5: PRICING
+    ======================================== -->
+    <section class="pricing" id="pricing">
+        <div class="pricing-inner">
+            <div class="pricing-header">
+                <p class="section-label">Pricing</p>
+                <h2>Start free. Upgrade when ready.</h2>
+                <p>No credit card required. No hidden fees. Cancel anytime.</p>
+            </div>
+
+            <!-- Billing Toggle -->
+            <div class="billing-toggle">
+                <span class="toggle-label" data-period="monthly">Monthly</span>
+                <button class="toggle-switch" id="billingToggle" aria-label="Toggle billing period">
+                    <span class="toggle-knob"></span>
+                </button>
+                <span class="toggle-label" data-period="yearly">
+                    Yearly
+                    <span class="toggle-badge">Save 17%</span>
+                </span>
+            </div>
+
+            <div class="pricing-cards">
+                <!-- Free Tier -->
+                <div class="pricing-card">
+                    <h3 class="pricing-name">Free</h3>
+                    <p class="pricing-desc">For small communities getting started</p>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">$0</span>
+                        <span class="pricing-period">/ month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Up to 200 submissions/month
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Manual username verification
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Approval queue
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Leaderboard & profiles
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Community support
+                        </li>
+                        <li class="disabled">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            Auto username verification
+                        </li>
+                        <li class="disabled">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            Anti-fraud protection
+                        </li>
+                        <li class="disabled">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            Streak system
+                        </li>
+                        <li class="disabled">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            Custom branding
+                        </li>
+                    </ul>
+                    <a href="https://discord.com/oauth2/authorize?client_id=1455733741585563658&permissions=268446736&integration_type=0&scope=bot+applications.commands" class="btn btn-secondary">Get Started Free</a>
+                </div>
+
+                <!-- Starter Tier -->
+                <div class="pricing-card featured">
+                    <span class="pricing-badge">Most Popular</span>
+                    <h3 class="pricing-name">Starter</h3>
+                    <p class="pricing-desc">For growing communities that need more</p>
+                    <div class="pricing-price">
+                        <span class="pricing-amount" data-monthly="$29" data-yearly="$290">$29</span>
+                        <span class="pricing-period" data-monthly="/ month" data-yearly="/ year">/ month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <strong>Unlimited</strong> submissions
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <strong>Auto</strong> username verification
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Approval queue
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Leaderboard & profiles
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Anti-fraud protection
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Streak system
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Custom branding
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Priority support
+                        </li>
+                    </ul>
+                    <a href="https://discord.com/oauth2/authorize?client_id=1455733741585563658&permissions=268446736&integration_type=0&scope=bot+applications.commands" class="btn btn-primary">Start 7-Day Free Trial</a>
+                </div>
+            </div>
+
+            <div class="pricing-guarantee">
+                <p><span>7-day free trial</span> on Starter plan. No credit card required to start. Pay with crypto.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 6: FAQ
+    ======================================== -->
+    <section class="faq" id="faq">
+        <div class="faq-inner">
+            <div class="faq-header">
+                <p class="section-label">FAQ</p>
+                <h2>Common questions</h2>
+                <p>Everything you need to know before getting started.</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item open">
+                    <button class="faq-question">
+                        How does username verification work?
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </button>
+                    <div class="faq-answer">
+                        When a member submits their Twitter username, Lurker checks if it's a valid, existing account. On the Free tier, you verify manually. On Starter, verification happens automatically in seconds.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What can members submit?
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </button>
+                    <div class="faq-answer">
+                        Members can submit their Twitter username, post links, and Twitter Space links through an interactive embed in your Discord channel. Everything is collected in a separate review channel for easy approval.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I try Starter before paying?
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </button>
+                    <div class="faq-answer">
+                        Yes. Every server gets a 7-day free trial of Starter. No credit card required. Just run <strong>/starter_preview</strong> after adding the bot.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What payment methods do you accept?
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </button>
+                    <div class="faq-answer">
+                        We accept cryptocurrency payments including BTC, ETH, USDT, USDC, SOL, and 50+ other tokens through our secure payment processor.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How does the anti-fraud system work?
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </button>
+                    <div class="faq-answer">
+                        Starter tier includes tweet age checking (only accepts posts less than 24 hours old), duplicate submission detection, and suspicious activity monitoring to keep your campaigns fair.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I customize how Lurker looks?
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </button>
+                    <div class="faq-answer">
+                        Yes. Starter tier includes custom branding options. Change embed colors, footer text, and announcement styles to match your community's brand.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What happens when I hit 200 submissions on Free?
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </button>
+                    <div class="faq-answer">
+                        You'll get a notification when you're approaching the limit. New submissions pause until the next month or until you upgrade to Starter for unlimited submissions.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How do I get support?
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </button>
+                    <div class="faq-answer">
+                        Join our official Discord server for community support. Starter tier members get priority support with faster response times from our team.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-support">
+                <p>Still have questions?</p>
+                <a href="#">
+                    Join our Discord for help
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         SECTION 7: FINAL CTA
+    ======================================== -->
+    <section class="final-cta">
+        <div class="cta-inner">
+            <h2>Stop wasting hours on fake submissions.</h2>
+            <p>Join 50+ Web3 communities using Lurker to run fair, verifiable Twitter engagement campaigns. Set up in under 2 minutes.</p>
+            
+            <div class="cta-buttons">
+                <a href="https://discord.com/oauth2/authorize?client_id=1455733741585563658&permissions=268446736&integration_type=0&scope=bot+applications.commands" class="btn btn-white">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                    Add to Discord — Free
+                </a>
+                <a href="#pricing" class="btn btn-ghost">
+                    View pricing
+                </a>
+            </div>
+
+            <div class="trust-row">
+                <div class="trust-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    Free plan available
+                </div>
+                <div class="trust-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    No credit card required
+                </div>
+                <div class="trust-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    Setup in 2 minutes
+                </div>
+                <div class="trust-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    Cancel anytime
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FOOTER
+    ======================================== -->
+    <footer>
+        <div class="footer-inner">
+            <a href="#" class="footer-logo">
+                <div class="footer-logo-icon">
+                    <div class="ring"></div>
+                    <div class="center"></div>
+                </div>
+                <span class="footer-logo-text">Lurker</span>
+            </a>
+
+            <div class="footer-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+                <a href="terms.html">Terms</a>
+                <a href="privacy.html">Privacy</a>
+            </div>
+
+            <p class="footer-copy">© 2026 Lurker. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         JAVASCRIPT
+    ======================================== -->
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.parentElement;
+                const isOpen = item.classList.contains('open');
+                
+                // Close all items
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    i.classList.remove('open');
+                });
+                
+                // Open clicked item if it wasn't already open
+                if (!isOpen) {
+                    item.classList.add('open');
+                }
+            });
+        });
+
+        // Billing Toggle
+        const billingToggle = document.getElementById('billingToggle');
+        const toggleLabels = document.querySelectorAll('.toggle-label');
+        const priceAmount = document.querySelector('.pricing-amount[data-monthly]');
+        const pricePeriod = document.querySelector('.pricing-period[data-monthly]');
+
+        // Set initial state
+        toggleLabels[0].classList.add('active');
+
+        billingToggle.addEventListener('click', () => {
+            billingToggle.classList.toggle('active');
+            const isYearly = billingToggle.classList.contains('active');
+            
+            // Update labels
+            toggleLabels[0].classList.toggle('active', !isYearly);
+            toggleLabels[1].classList.toggle('active', isYearly);
+            
+            // Update price
+            if (priceAmount && pricePeriod) {
+                priceAmount.textContent = isYearly ? priceAmount.dataset.yearly : priceAmount.dataset.monthly;
+                pricePeriod.textContent = isYearly ? pricePeriod.dataset.yearly : pricePeriod.dataset.monthly;
+            }
+        });
+
+        // Click on labels to toggle
+        toggleLabels.forEach((label, index) => {
+            label.addEventListener('click', () => {
+                const shouldBeYearly = index === 1;
+                const isCurrentlyYearly = billingToggle.classList.contains('active');
+                
+                if (shouldBeYearly !== isCurrentlyYearly) {
+                    billingToggle.click();
+                }
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
