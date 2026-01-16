@@ -310,43 +310,51 @@
             .faq-support a:hover { background: rgba(124, 58, 237, 0.15); transform: translateX(4px); }
 
             /* Affiliate */
-            .affiliate { padding: 100px 48px; background: var(--bg-secondary); }
+            .affiliate { padding: 100px 48px; background: var(--black); color: var(--white); }
             .affiliate-inner { max-width: 1100px; margin: 0 auto; }
             .affiliate-header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
-            .affiliate h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -1px; line-height: 1.2; margin-bottom: 20px; color: var(--text-primary); }
-            .affiliate-header p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.7; }
+            .affiliate h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -1px; line-height: 1.2; margin-bottom: 20px; color: var(--white); }
+            .affiliate-header p { font-size: 1.1rem; color: var(--gray-400); line-height: 1.7; }
             .affiliate-highlight { display: inline-block; background: linear-gradient(135deg, var(--purple), #9f67ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-            .affiliate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-            .affiliate-steps { display: flex; flex-direction: column; gap: 20px; }
-            .affiliate-step { display: flex; gap: 16px; padding: 24px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); transition: transform var(--transition-fast), box-shadow var(--transition-fast); }
-            .affiliate-step:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); }
-            [data-theme="dark"] .affiliate-step { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); }
-            [data-theme="dark"] .affiliate-step:hover { box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4); }
-            .affiliate-step-num { width: 36px; height: 36px; background: var(--purple); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 700; flex-shrink: 0; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3); }
-            .affiliate-step-content h4 { font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
-            .affiliate-step-content p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
-            .affiliate-tiers { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); overflow: hidden; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); }
-            [data-theme="dark"] .affiliate-tiers { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); }
-            .affiliate-tiers-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); background: var(--bg-tertiary); }
-            .affiliate-tiers-header h4 { font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 0; }
-            .tier-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; padding: 16px 24px; border-bottom: 1px solid var(--border-color); align-items: center; font-size: 0.9rem; transition: background var(--transition-fast); }
-            .tier-row:last-child { border-bottom: none; }
-            .tier-row:not(.header):hover { background: var(--bg-secondary); }
-            .tier-row.header { font-weight: 600; color: var(--text-secondary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; background: var(--bg-secondary); }
-            .tier-row .tier-name { display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--text-primary); }
-            .tier-row .tier-name .tier-icon { font-size: 1.2rem; }
-            .tier-row span { color: var(--text-secondary); }
-            .tier-row.diamond { background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(159, 103, 255, 0.1)); }
-            .tier-row.diamond:hover { background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(159, 103, 255, 0.15)); }
+            .affiliate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; margin-bottom: 48px; }
+            .affiliate-steps-title { font-size: 1.25rem; font-weight: 700; color: var(--white); margin-bottom: 24px; }
+            .affiliate-steps { display: flex; flex-direction: column; gap: 24px; }
+            .affiliate-step { display: flex; gap: 16px; align-items: flex-start; }
+            .affiliate-step-num { width: 40px; height: 40px; background: var(--purple); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 700; flex-shrink: 0; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4); }
+            .affiliate-step-content h4 { font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+            .affiliate-step-content p { font-size: 0.9rem; color: var(--gray-400); line-height: 1.5; }
+            .affiliate-step-content code { background: rgba(124, 58, 237, 0.2); color: var(--purple); padding: 2px 8px; border-radius: 4px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85rem; border: 1px solid rgba(124, 58, 237, 0.3); }
+            .affiliate-tiers-section { }
+            .affiliate-tiers-title { font-size: 1.25rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+            .affiliate-tiers-subtitle { font-size: 0.9rem; color: var(--gray-400); margin-bottom: 24px; }
+            .affiliate-tiers { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius); overflow: hidden; }
+            .tier-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; padding: 16px 24px; align-items: center; font-size: 0.9rem; }
+            .tier-row.header { font-weight: 600; color: var(--gray-400); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; background: rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+            .tier-row:not(.header) { background: rgba(255, 255, 255, 0.02); }
+            .tier-row:not(.header):nth-child(odd) { background: rgba(255, 255, 255, 0.04); }
+            .tier-row .tier-name { display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--white); }
+            .tier-row .tier-name .tier-icon { font-size: 1rem; }
+            .tier-row .tier-referrals { color: var(--gray-400); }
+            .tier-row .tier-commission { color: #10B981; font-weight: 600; }
+            .tier-row .tier-earnings { color: #10B981; font-weight: 600; }
+            .tier-row.diamond { background: rgba(124, 58, 237, 0.15) !important; }
             .tier-row.diamond .tier-name { color: var(--purple); }
-            .tier-row.diamond span { color: var(--text-primary); font-weight: 500; }
-            .affiliate-earning { margin-top: 24px; padding: 28px; background: linear-gradient(135deg, var(--purple), #9f67ff); border-radius: var(--radius); text-align: center; color: var(--white); box-shadow: 0 8px 30px rgba(124, 58, 237, 0.35); }
-            .affiliate-earning p { font-size: 0.9rem; opacity: 0.9; margin-bottom: 8px; }
-            .affiliate-earning .amount { font-size: 2.5rem; font-weight: 700; letter-spacing: -1px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); }
-            .affiliate-earning .detail { font-size: 0.85rem; opacity: 0.85; margin-top: 6px; }
-            .affiliate-cta { text-align: center; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--border-color); }
-            .affiliate-cta p { font-size: 1rem; color: var(--text-muted); margin-bottom: 20px; }
-            .affiliate-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 16px; text-align: center; }
+            .tier-row.diamond .tier-commission, .tier-row.diamond .tier-earnings { color: #10B981; }
+            .affiliate-note { font-size: 0.8rem; color: var(--gray-500); margin-top: 16px; }
+            .affiliate-earning { margin-top: 32px; padding: 32px; background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(124, 58, 237, 0.05)); border: 1px solid rgba(124, 58, 237, 0.3); border-radius: var(--radius); display: flex; align-items: center; gap: 20px; }
+            .affiliate-earning-icon { width: 56px; height: 56px; background: rgba(124, 58, 237, 0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+            .affiliate-earning-icon .icon { width: 28px; height: 28px; color: var(--purple); }
+            .affiliate-earning-content { }
+            .affiliate-earning-title { font-size: 1.5rem; font-weight: 700; color: #10B981; margin-bottom: 4px; }
+            .affiliate-earning-detail { font-size: 0.9rem; color: var(--gray-400); }
+            .affiliate-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; padding-top: 48px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+            .affiliate-feature { text-align: center; padding: 32px 24px; background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: var(--radius); }
+            .affiliate-feature-icon { width: 56px; height: 56px; background: rgba(124, 58, 237, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+            .affiliate-feature-icon .icon { width: 24px; height: 24px; color: var(--purple); }
+            .affiliate-feature h4 { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+            .affiliate-feature p { font-size: 0.85rem; color: var(--gray-400); line-height: 1.5; }
+            .affiliate-cta { text-align: center; margin-top: 56px; }
+            .affiliate-cta .btn { padding: 16px 32px; font-size: 1rem; }
 
             /* Final CTA */
             .final-cta { padding: 120px 48px; background: linear-gradient(180deg, var(--black) 0%, #12121a 100%); color: var(--white); }
@@ -383,7 +391,8 @@
                 .steps-container::before { display: none; }
                 .pricing-cards { grid-template-columns: 1fr; }
                 .pricing-card.featured { order: -1; }
-                .affiliate-grid { grid-template-columns: 1fr; }
+                .affiliate-grid { grid-template-columns: 1fr; gap: 48px; }
+                .affiliate-features { grid-template-columns: 1fr; }
                 .tier-row { grid-template-columns: 1fr 1fr; gap: 8px; }
                 .tier-row.header { display: none; }
                 .tier-row .tier-name { grid-column: 1 / -1; margin-bottom: 4px; }
@@ -399,6 +408,8 @@
                 .hero-buttons .btn { width: 100%; }
                 .social-proof { flex-direction: column; gap: 24px; }
                 .problem, .solution, .how-it-works, .pricing, .faq, .final-cta, .affiliate { padding: 80px 24px; }
+                .affiliate-earning { flex-direction: column; text-align: center; }
+                .affiliate-features { gap: 16px; }
                 .steps-container { grid-template-columns: 1fr; gap: 40px; }
                 .faq-question { padding: 16px 20px; }
                 .faq-answer { padding: 0 20px 16px; }
@@ -424,6 +435,10 @@
             <symbol id="icon-plus" viewBox="0 0 24 24"><line class="icon-stroke" x1="12" y1="5" x2="12" y2="19"/><line class="icon-stroke" x1="5" y1="12" x2="19" y2="12"/></symbol>
             <symbol id="icon-gift" viewBox="0 0 24 24"><polyline class="icon-stroke" points="20 12 20 22 4 22 4 12"/><rect class="icon-stroke" x="2" y="7" width="20" height="5"/><line class="icon-stroke" x1="12" y1="22" x2="12" y2="7"/><path class="icon-stroke" d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path class="icon-stroke" d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></symbol>
             <symbol id="icon-dollar" viewBox="0 0 24 24"><line class="icon-stroke" x1="12" y1="1" x2="12" y2="23"/><path class="icon-stroke" d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></symbol>
+            <symbol id="icon-calendar" viewBox="0 0 24 24"><rect class="icon-stroke" x="3" y="4" width="18" height="18" rx="2" ry="2"/><line class="icon-stroke" x1="16" y1="2" x2="16" y2="6"/><line class="icon-stroke" x1="8" y1="2" x2="8" y2="6"/><line class="icon-stroke" x1="3" y1="10" x2="21" y2="10"/></symbol>
+            <symbol id="icon-dollar-circle" viewBox="0 0 24 24"><circle class="icon-stroke" cx="12" cy="12" r="10"/><path class="icon-stroke" d="M12 6v12M15 9.5c0-1.5-1.5-2.5-3-2.5s-3 1-3 2.5 1.5 2.5 3 2.5 3 1 3 2.5-1.5 2.5-3 2.5"/></symbol>
+            <symbol id="icon-bar-chart" viewBox="0 0 24 24"><line class="icon-stroke" x1="12" y1="20" x2="12" y2="10"/><line class="icon-stroke" x1="18" y1="20" x2="18" y2="4"/><line class="icon-stroke" x1="6" y1="20" x2="6" y2="16"/></symbol>
+            <symbol id="icon-money-bag" viewBox="0 0 24 24"><path class="icon-stroke" d="M12 2L9 6h6l-3-4z"/><path class="icon-stroke" d="M9 6c-4 2-6 6-6 10 0 4 4 6 9 6s9-2 9-6c0-4-2-8-6-10"/><path class="icon-stroke" d="M12 11v6m-2-4.5c0-1 1-1.5 2-1.5s2 .5 2 1.5-1 1.5-2 1.5-2 .5-2 1.5 1 1.5 2 1.5"/></symbol>
             <symbol id="icon-arrow-right" viewBox="0 0 24 24"><line class="icon-stroke" x1="5" y1="12" x2="19" y2="12"/><polyline class="icon-stroke" points="12 5 19 12 12 19"/></symbol>
             <symbol id="icon-alert-circle" viewBox="0 0 24 24"><circle class="icon-stroke" cx="12" cy="12" r="10"/><line class="icon-stroke" x1="12" y1="8" x2="12" y2="12"/><line class="icon-stroke" x1="12" y1="16" x2="12.01" y2="16"/></symbol>
             <symbol id="icon-clock" viewBox="0 0 24 24"><circle class="icon-stroke" cx="12" cy="12" r="10"/><polyline class="icon-stroke" points="12 6 12 12 16 14"/></symbol>
@@ -684,80 +699,121 @@
             
             <div class="affiliate-grid">
                 <!-- How It Works -->
-                <div class="affiliate-steps">
-                    <div class="affiliate-step">
-                        <div class="affiliate-step-num">1</div>
-                        <div class="affiliate-step-content">
-                            <h4>Join the Program</h4>
-                            <p>Run <strong>/affiliate</strong> in the official Lurker Discord to get your unique referral code.</p>
+                <div>
+                    <h3 class="affiliate-steps-title">How It Works</h3>
+                    <div class="affiliate-steps">
+                        <div class="affiliate-step">
+                            <div class="affiliate-step-num">1</div>
+                            <div class="affiliate-step-content">
+                                <h4>Join the Program</h4>
+                                <p>Run <code>/affiliate</code> in the Lurker Discord to get your unique referral code.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="affiliate-step">
-                        <div class="affiliate-step-num">2</div>
-                        <div class="affiliate-step-content">
-                            <h4>Share Your Code</h4>
-                            <p>Promote Lurker to Discord server owners. They get <strong>10% off</strong> their first payment.</p>
+                        <div class="affiliate-step">
+                            <div class="affiliate-step-num">2</div>
+                            <div class="affiliate-step-content">
+                                <h4>Share Your Code</h4>
+                                <p>Promote Lurker to Discord server owners and share your affiliate code.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="affiliate-step">
-                        <div class="affiliate-step-num">3</div>
-                        <div class="affiliate-step-content">
-                            <h4>Earn Commission</h4>
-                            <p>You earn commission on their payments for <strong>6 months</strong>. Paid monthly via crypto.</p>
+                        <div class="affiliate-step">
+                            <div class="affiliate-step-num">3</div>
+                            <div class="affiliate-step-content">
+                                <h4>They Save 10%</h4>
+                                <p>When someone uses your code, they get 10% off their first payment.</p>
+                            </div>
+                        </div>
+                        <div class="affiliate-step">
+                            <div class="affiliate-step-num">4</div>
+                            <div class="affiliate-step-content">
+                                <h4>You Earn Commission</h4>
+                                <p>Earn commission on their payments for 6 months — recurring!</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Commission Tiers -->
-                <div>
+                <div class="affiliate-tiers-section">
+                    <h3 class="affiliate-tiers-title">Commission Tiers</h3>
+                    <p class="affiliate-tiers-subtitle">The more referrals you bring, the higher your rate!</p>
                     <div class="affiliate-tiers">
-                        <div class="affiliate-tiers-header">
-                            <h4>Commission Tiers</h4>
-                        </div>
                         <div class="tier-row header">
-                            <span>Tier</span>
-                            <span>Referrals</span>
-                            <span>Commission</span>
-                            <span>Per Referral*</span>
+                            <span>TIER</span>
+                            <span>REFERRALS</span>
+                            <span>COMMISSION</span>
+                            <span>PER REFERRAL*</span>
                         </div>
                         <div class="tier-row">
                             <div class="tier-name"><span class="tier-icon">🥉</span> Bronze</div>
-                            <span>1 - 5</span>
-                            <span>15%</span>
-                            <span>$25.67</span>
+                            <span class="tier-referrals">1 - 5</span>
+                            <span class="tier-commission">15%</span>
+                            <span class="tier-earnings">$25.67</span>
                         </div>
                         <div class="tier-row">
                             <div class="tier-name"><span class="tier-icon">🥈</span> Silver</div>
-                            <span>6 - 15</span>
-                            <span>20%</span>
-                            <span>$34.22</span>
+                            <span class="tier-referrals">6 - 15</span>
+                            <span class="tier-commission">20%</span>
+                            <span class="tier-earnings">$34.22</span>
                         </div>
                         <div class="tier-row">
                             <div class="tier-name"><span class="tier-icon">🥇</span> Gold</div>
-                            <span>16 - 30</span>
-                            <span>25%</span>
-                            <span>$42.78</span>
+                            <span class="tier-referrals">16 - 30</span>
+                            <span class="tier-commission">25%</span>
+                            <span class="tier-earnings">$42.78</span>
                         </div>
                         <div class="tier-row diamond">
                             <div class="tier-name"><span class="tier-icon">💎</span> Diamond</div>
-                            <span>31+</span>
-                            <span>30%</span>
-                            <span>$51.33</span>
+                            <span class="tier-referrals">31+</span>
+                            <span class="tier-commission">30%</span>
+                            <span class="tier-earnings">$51.33</span>
                         </div>
                     </div>
                     <p class="affiliate-note">*Total earnings over 6 months per referral (based on $29/month)</p>
-                    
-                    <div class="affiliate-earning">
-                        <p>Diamond affiliate with 50 referrals could earn:</p>
-                        <div class="amount">$2,566.50</div>
-                        <div class="detail">50 referrals × $51.33 each over 6 months</div>
+                </div>
+            </div>
+            
+            <!-- Potential Earnings Box -->
+            <div class="affiliate-earning">
+                <div class="affiliate-earning-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v12M15 9.5c0-1.5-1.5-2.5-3-2.5s-3 1-3 2.5 1.5 2.5 3 2.5 3 1 3 2.5-1.5 2.5-3 2.5"/>
+                    </svg>
+                </div>
+                <div class="affiliate-earning-content">
+                    <div class="affiliate-earning-title">Potential Earnings: $2,566.50</div>
+                    <div class="affiliate-earning-detail">50 referrals × $51.33 each = $2,566.50 over 6 months as a Diamond affiliate</div>
+                </div>
+            </div>
+            
+            <!-- Feature Cards -->
+            <div class="affiliate-features">
+                <div class="affiliate-feature">
+                    <div class="affiliate-feature-icon">
+                        <svg class="icon"><use href="#icon-calendar"/></svg>
                     </div>
+                    <h4>Monthly Payouts</h4>
+                    <p>Get paid every month once you hit the $25 minimum threshold.</p>
+                </div>
+                <div class="affiliate-feature">
+                    <div class="affiliate-feature-icon">
+                        <svg class="icon"><use href="#icon-dollar-circle"/></svg>
+                    </div>
+                    <h4>Flexible Payments</h4>
+                    <p>Choose crypto (USDT, USDC, BTC, ETH) for payouts.</p>
+                </div>
+                <div class="affiliate-feature">
+                    <div class="affiliate-feature-icon">
+                        <svg class="icon"><use href="#icon-bar-chart"/></svg>
+                    </div>
+                    <h4>Track Progress</h4>
+                    <p>Run /affiliate anytime to view your dashboard, earnings, and tier progress.</p>
                 </div>
             </div>
             
             <div class="affiliate-cta">
-                <p>Ready to start earning? Run <strong>/affiliate</strong> in our Discord server today.</p>
-                <a href="https://discord.gg/z74XYhHTjp" class="btn btn-primary">
+                <a href="https://discord.gg/z74XYhHTjp" class="btn btn-white">
                     <svg class="icon" width="18" height="18"><use href="#icon-discord"/></svg>
                     Join Affiliate Program
                 </a>
