@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Service - Lurker</title>
-    <link rel="icon" type="image/svg+xml" href="lurker-icon.svg">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 160'%3E%3Cdefs%3E%3ClinearGradient id='h' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%237C3AED'/%3E%3Cstop offset='100%25' stop-color='%235B21B6'/%3E%3C/linearGradient%3E%3ClinearGradient id='s' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%235B21B6'/%3E%3Cstop offset='100%25' stop-color='%233B1578'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M28 4H72Q88 4 88 20V32Q88 44 74 44H28V4Z' fill='url(%23h)'/%3E%3Ccircle cx='62' cy='24' r='14' fill='%230A0A0F'/%3E%3Cpath d='M36 44H64V152Q64 156 60 156H40Q36 156 36 152Z' fill='url(%23s)'/%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,35 +37,8 @@
             text-decoration: none;
         }
         .nav-logo-icon {
-            width: 40px;
-            height: 40px;
-            position: relative;
-        }
-        .nav-logo-icon .ring {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--purple-deep);
-            border-radius: 50%;
-            position: absolute;
-        }
-        .nav-logo-icon .center {
             width: 20px;
-            height: 20px;
-            background: linear-gradient(135deg, var(--purple) 0%, var(--purple-deep) 100%);
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .nav-logo-icon .dot {
-            width: 7px;
-            height: 7px;
-            background: var(--dark);
-            border-radius: 50%;
+            height: 32px;
         }
         .nav-logo-text {
             font-size: 1.5rem;
@@ -119,12 +92,16 @@
 <body>
     <nav>
         <a href="index.html" class="nav-logo">
-            <div class="nav-logo-icon">
-                <div class="ring"></div>
-                <div class="center">
-                    <div class="dot"></div>
-                </div>
-            </div>
+            <svg class="nav-logo-icon" width="20" height="32" viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M28 4 H72 Q88 4 88 20 V32 Q88 44 74 44 H56 V44 H28 Q28 44 28 44 V4 Z" fill="url(#nav-head)"/>
+                <circle cx="62" cy="24" r="14" fill="#0A0A0F"/>
+                <circle cx="57" cy="19" r="5" fill="rgba(255,255,255,0.25)"/>
+                <path d="M36 44 H64 V152 Q64 156 60 156 H40 Q36 156 36 152 Z" fill="url(#nav-stem)"/>
+                <defs>
+                    <linearGradient id="nav-head" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#5B21B6"/></linearGradient>
+                    <linearGradient id="nav-stem" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#5B21B6"/><stop offset="100%" stop-color="#3B1578"/></linearGradient>
+                </defs>
+            </svg>
             <span class="nav-logo-text">Lurker</span>
         </a>
     </nav>
@@ -192,7 +169,7 @@
     </div>
 
     <footer>
-        <p>© 2026 Lurker. All rights reserved.</p>
+        <p>© 2025 Lurker. All rights reserved.</p>
     </footer>
 </body>
 </html>
