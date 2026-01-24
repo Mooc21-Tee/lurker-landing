@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lurker - Discord Bot for Twitter Engagement</title>
-    <meta name="description" content="Stop rewarding fake engagement. Lurker verifies Twitter usernames, tracks submissions, and rewards your community. Setup in under 2 minutes.">
+    <title>Lurker - Turn Silent Members into Active Twitter Supporters</title>
+    <meta name="description" content="Turn silent Discord members into active Twitter supporters. Lurker tracks contributions and makes them visible. When members see their work counts, more of them start creating.">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 160'%3E%3Cdefs%3E%3ClinearGradient id='h' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%237C3AED'/%3E%3Cstop offset='100%25' stop-color='%235B21B6'/%3E%3C/linearGradient%3E%3ClinearGradient id='s' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%235B21B6'/%3E%3Cstop offset='100%25' stop-color='%233B1578'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M28 4H72Q88 4 88 20V32Q88 44 74 44H28V4Z' fill='url(%23h)'/%3E%3Ccircle cx='62' cy='24' r='14' fill='%230A0A0F'/%3E%3Cpath d='M36 44H64V152Q64 156 60 156H40Q36 156 36 152Z' fill='url(%23s)'/%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
@@ -393,6 +393,9 @@
             .footer-links { display: flex; gap: 32px; }
             .footer-links a { font-size: 0.9rem; color: var(--gray-500); text-decoration: none; transition: color var(--transition-fast); }
             .footer-links a:hover { color: var(--white); }
+            .footer-socials { display: flex; gap: 16px; }
+            .footer-socials a { color: var(--gray-500); transition: color var(--transition-fast); }
+            .footer-socials a:hover { color: var(--white); }
             .footer-copy { font-size: 0.85rem; color: var(--gray-600); }
         }
 
@@ -520,8 +523,8 @@
     <section class="hero">
         <div class="hero-label"><span class="hero-label-dot"></span>Trusted by 50+ Web3 communities</div>
         <div class="hero-content">
-            <h1>Stop rewarding fake engagement.</h1>
-            <p>Lurker verifies Twitter usernames before your team wastes hours on manual checks. One bot. Zero fake submissions.</p>
+            <h1>Turn silent members into active Twitter supporters.</h1>
+            <p>Lurker tracks who's creating content about your project and makes it visible. When members see their work counts — more of them start posting.</p>
             <div class="hero-buttons">
                 <a href="https://discord.com/oauth2/authorize?client_id=1455733741585563658&permissions=268446736&integration_type=0&scope=bot+applications.commands" class="btn btn-primary">
                     <svg class="icon" width="18" height="18"><use href="#icon-discord"/></svg>Add to Discord — Free
@@ -531,7 +534,7 @@
         </div>
         <div class="social-proof">
             <div class="proof-item"><span class="proof-value">50+</span><span class="proof-label">Active servers</span></div>
-            <div class="proof-item"><span class="proof-value">10,000+</span><span class="proof-label">Submissions verified</span></div>
+            <div class="proof-item"><span class="proof-value">10,000+</span><span class="proof-label">Contributions tracked</span></div>
             <div class="proof-item"><span class="proof-value">99.9%</span><span class="proof-label">Uptime</span></div>
             <div class="proof-item"><span class="proof-value">&lt;2min</span><span class="proof-label">Setup time</span></div>
         </div>
@@ -542,27 +545,27 @@
         <div class="problem-inner">
             <div class="problem-header">
                 <p class="section-label">The Problem</p>
-                <h2>Running Twitter raids shouldn't feel like a second job.</h2>
-                <p>Most community managers spend hours checking submissions manually. Fake accounts slip through. Real contributors get frustrated.</p>
+                <h2>Your best supporters are invisible.</h2>
+                <p>Members post about your project every week — but you have no idea who they are. And most members don't post at all because no one's tracking it.</p>
             </div>
             <div class="pain-grid">
                 <div class="pain-card">
                     <div class="pain-icon"><svg class="icon" width="24" height="24"><use href="#icon-alert-circle"/></svg></div>
-                    <h3>Fake usernames waste your time</h3>
-                    <p>People submit random handles, typos, or accounts that don't exist. You spend hours verifying each one manually.</p>
-                    <span class="pain-stat">~40% of submissions are invalid</span>
+                    <h3>Contributions go unnoticed</h3>
+                    <p>Your most loyal members are tweeting about you — but without tracking, you can't see who's actually showing up consistently.</p>
+                    <span class="pain-stat">~80% of contributions go unrecognized</span>
                 </div>
                 <div class="pain-card">
                     <div class="pain-icon"><svg class="icon" width="24" height="24"><use href="#icon-clock"/></svg></div>
-                    <h3>Manual review doesn't scale</h3>
-                    <p>As your community grows, so does the submission pile. What worked with 50 members breaks at 500.</p>
-                    <span class="pain-stat">3+ hours/week on manual checks</span>
+                    <h3>Silent members stay silent</h3>
+                    <p>Most members want to support you, but they don't post because it feels pointless. No tracking means no motivation.</p>
+                    <span class="pain-stat">Only 10% of members actively post</span>
                 </div>
                 <div class="pain-card">
                     <div class="pain-icon"><svg class="icon" width="24" height="24"><use href="#icon-user-minus"/></svg></div>
-                    <h3>Good contributors leave</h3>
-                    <p>When cheaters get the same rewards as real participants, your best community members lose motivation.</p>
-                    <span class="pain-stat">2x churn in unfair systems</span>
+                    <h3>No way to find community leaders</h3>
+                    <p>Your next ambassador is already posting about you every week. But without visibility, you'll never find them.</p>
+                    <span class="pain-stat">Hidden advocates in every community</span>
                 </div>
             </div>
         </div>
@@ -573,32 +576,32 @@
         <div class="solution-inner">
             <div class="solution-header">
                 <p class="section-label">The Solution</p>
-                <h2>Automate verification. Keep control.</h2>
-                <p>Lurker handles the tedious checks so you can focus on growing your community.</p>
+                <h2>Track contributions. Motivate members.</h2>
+                <p>Lurker makes every contribution visible — so members have a reason to post and you know who's showing up.</p>
             </div>
             <div class="feature-row">
                 <div class="feature-content">
                     <p class="feature-number">01</p>
-                    <h3>Instant username verification</h3>
-                    <p>When someone submits a Twitter handle, Lurker checks if it's a real account in seconds.</p>
-                    <div class="feature-benefit"><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Eliminates 40% of invalid submissions instantly</div>
+                    <h3>Verified submissions only</h3>
+                    <p>Members prove they own their Twitter account before submitting. Every contribution tied to a real person.</p>
+                    <div class="feature-benefit"><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Know exactly who's creating content for you</div>
                 </div>
                 <div class="feature-visual">
                     <div class="mock-verification">
                         <div class="mock-input"><span>@</span><span class="handle">cryptobuilder_</span></div>
-                        <div class="mock-result"><svg class="icon" width="16" height="16"><use href="#icon-circle-check"/></svg>Verified — Account exists</div>
+                        <div class="mock-result"><svg class="icon" width="16" height="16"><use href="#icon-circle-check"/></svg>Verified — Ready to submit</div>
                         <div style="height: 12px;"></div>
                         <div class="mock-input"><span>@</span><span class="handle">xxy_fake_2847</span></div>
-                        <div class="mock-result invalid"><svg class="icon" width="16" height="16"><use href="#icon-circle-x"/></svg>Invalid — Account not found</div>
+                        <div class="mock-result invalid"><svg class="icon" width="16" height="16"><use href="#icon-circle-x"/></svg>Not verified — Cannot submit</div>
                     </div>
                 </div>
             </div>
             <div class="feature-row reverse">
                 <div class="feature-content">
                     <p class="feature-number">02</p>
-                    <h3>One-click approval queue</h3>
-                    <p>All verified submissions land in a clean queue. Approve or reject with a single click.</p>
-                    <div class="feature-benefit"><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Review 50 submissions in under 5 minutes</div>
+                    <h3>Track every contribution</h3>
+                    <p>Every post and space gets logged. See who's consistently showing up — not just who's loud once.</p>
+                    <div class="feature-benefit"><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Finally see who's actually building your brand</div>
                 </div>
                 <div class="feature-visual">
                     <div class="mock-queue">
@@ -612,9 +615,9 @@
             <div class="feature-row">
                 <div class="feature-content">
                     <p class="feature-number">03</p>
-                    <h3>Streaks and leaderboards</h3>
-                    <p>Reward consistency, not just volume. Weekly streaks motivate repeat engagement.</p>
-                    <div class="feature-benefit"><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Communities see 3x more repeat engagement</div>
+                    <h3>Leaderboards that motivate</h3>
+                    <p>When members see their work counts — they post more. Public recognition turns lurkers into creators.</p>
+                    <div class="feature-benefit"><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Communities see 3x more members actively posting</div>
                 </div>
                 <div class="feature-visual">
                     <div class="mock-leaderboard">
@@ -643,7 +646,7 @@
                 <div class="step"><div class="step-number">4</div><h3>Review & reward</h3><p>Approve verified submissions.</p><span class="step-time">Ongoing</span></div>
             </div>
             <div class="how-cta">
-                <p>Ready to stop chasing fake submissions?</p>
+                <p>Ready to turn silent members into active supporters?</p>
                 <a href="https://discord.com/oauth2/authorize?client_id=1455733741585563658&permissions=268446736&integration_type=0&scope=bot+applications.commands" class="btn btn-white"><svg class="icon" width="18" height="18"><use href="#icon-discord"/></svg>Add Lurker to Discord</a>
             </div>
         </div>
@@ -669,12 +672,12 @@
                     <div class="pricing-price"><span class="pricing-amount">$0</span><span class="pricing-period">/ month</span></div>
                     <ul class="pricing-features">
                         <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Up to 200 submissions/month</li>
-                        <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Manual username verification</li>
-                        <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Approval queue</li>
+                        <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Twitter verification</li>
+                        <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Contribution tracking</li>
                         <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Leaderboard & profiles</li>
-                        <li class="disabled"><svg class="icon" width="18" height="18"><use href="#icon-x"/></svg>Auto username verification</li>
-                        <li class="disabled"><svg class="icon" width="18" height="18"><use href="#icon-x"/></svg>Anti-fraud protection</li>
-                        <li class="disabled"><svg class="icon" width="18" height="18"><use href="#icon-x"/></svg>Streak system</li>
+                        <li class="disabled"><svg class="icon" width="18" height="18"><use href="#icon-x"/></svg>Instant verification</li>
+                        <li class="disabled"><svg class="icon" width="18" height="18"><use href="#icon-x"/></svg>Advanced analytics</li>
+                        <li class="disabled"><svg class="icon" width="18" height="18"><use href="#icon-x"/></svg>Achievement roles</li>
                     </ul>
                     <a href="https://discord.com/oauth2/authorize?client_id=1455733741585563658&permissions=268446736&integration_type=0&scope=bot+applications.commands" class="btn btn-secondary">Get Started Free</a>
                 </div>
@@ -685,9 +688,9 @@
                     <div class="pricing-price"><span class="pricing-amount" data-monthly="$29" data-yearly="$290">$29</span><span class="pricing-period" data-monthly="/ month" data-yearly="/ year">/ month</span></div>
                     <ul class="pricing-features">
                         <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg><strong>Unlimited</strong> submissions</li>
-                        <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg><strong>Auto</strong> username verification</li>
-                        <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Anti-fraud protection</li>
-                        <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Streak system</li>
+                        <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg><strong>Instant</strong> verification</li>
+                        <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Advanced analytics</li>
+                        <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Achievement roles</li>
                         <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Custom branding</li>
                         <li><svg class="icon" width="18" height="18"><use href="#icon-check"/></svg>Priority support</li>
                     </ul>
@@ -707,13 +710,13 @@
                 <p>Everything you need to know before getting started.</p>
             </div>
             <div class="faq-list">
-                <div class="faq-item open"><button class="faq-question">How does username verification work?<svg class="icon" width="20" height="20"><use href="#icon-plus"/></svg></button><div class="faq-answer">When a member submits their Twitter username, Lurker checks if it's a valid, existing account. On the Free tier, you verify manually. On Starter, verification happens automatically in seconds.</div></div>
-                <div class="faq-item"><button class="faq-question">What can members submit?<svg class="icon" width="20" height="20"><use href="#icon-plus"/></svg></button><div class="faq-answer">Members can submit their Twitter username, post links, and Twitter Space links through an interactive embed in your Discord channel.</div></div>
+                <div class="faq-item open"><button class="faq-question">How does Lurker get more members posting?<svg class="icon" width="20" height="20"><use href="#icon-plus"/></svg></button><div class="faq-answer">Lurker tracks every contribution and makes them visible through leaderboards, streaks, and achievement roles. When members see their work actually counts, more of them start creating content.</div></div>
+                <div class="faq-item"><button class="faq-question">What can members submit?<svg class="icon" width="20" height="20"><use href="#icon-plus"/></svg></button><div class="faq-answer">Members can submit Twitter posts and Twitter Spaces through an interactive panel in your Discord. Everything gets tracked and counted toward leaderboards.</div></div>
                 <div class="faq-item"><button class="faq-question">Can I try Starter before paying?<svg class="icon" width="20" height="20"><use href="#icon-plus"/></svg></button><div class="faq-answer">Yes. Every server gets a 7-day free trial of Starter. No credit card required. Just run <strong>/starter_preview</strong> after adding the bot.</div></div>
                 <div class="faq-item"><button class="faq-question">What payment methods do you accept?<svg class="icon" width="20" height="20"><use href="#icon-plus"/></svg></button><div class="faq-answer">We accept cryptocurrency payments including BTC, ETH, USDT, USDC, SOL, and 50+ other tokens.</div></div>
-                <div class="faq-item"><button class="faq-question">How does the anti-fraud system work?<svg class="icon" width="20" height="20"><use href="#icon-plus"/></svg></button><div class="faq-answer">Starter tier includes tweet age checking (only accepts posts less than 24 hours old), duplicate submission detection, and suspicious activity monitoring.</div></div>
+                <div class="faq-item"><button class="faq-question">How does verification work?<svg class="icon" width="20" height="20"><use href="#icon-plus"/></svg></button><div class="faq-answer">Members prove they own their Twitter account by posting a unique code. This ensures every submission comes from a real, verified person — not random accounts.</div></div>
             </div>
-            <div class="faq-support"><p>Still have questions?</p><a href="https://discord.gg/z74XYhHTjp">Join our Discord for help <svg class="icon" width="18" height="18"><use href="#icon-arrow-right"/></svg></a></div>
+            <div class="faq-support"><p>Still have questions?</p><a href="https://discord.gg/aU8tSjgPx9">Join our Discord for help <svg class="icon" width="18" height="18"><use href="#icon-arrow-right"/></svg></a></div>
         </div>
     </section>
 
@@ -842,7 +845,7 @@
             </div>
             
             <div class="affiliate-cta">
-                <a href="https://discord.gg/z74XYhHTjp" class="btn btn-white">
+                <a href="https://discord.gg/aU8tSjgPx9" class="btn btn-white">
                     <svg class="icon" width="18" height="18"><use href="#icon-discord"/></svg>
                     Join Affiliate Program
                 </a>
@@ -853,8 +856,8 @@
     <!-- FINAL CTA -->
     <section class="final-cta">
         <div class="cta-inner">
-            <h2>Stop wasting hours on fake submissions.</h2>
-            <p>Join 50+ Web3 communities using Lurker to run fair, verifiable Twitter engagement campaigns.</p>
+            <h2>Turn silent members into active supporters.</h2>
+            <p>Join 50+ Web3 communities using Lurker to get more members creating content about their project.</p>
             <div class="cta-buttons">
                 <a href="https://discord.com/oauth2/authorize?client_id=1455733741585563658&permissions=268446736&integration_type=0&scope=bot+applications.commands" class="btn btn-white"><svg class="icon" width="20" height="20"><use href="#icon-discord"/></svg>Add to Discord — Free</a>
                 <a href="#pricing" class="btn btn-ghost">View pricing</a>
@@ -885,7 +888,15 @@
                 <span class="footer-logo-text">Lurker</span>
             </a>
             <div class="footer-links"><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#affiliate">Affiliate</a><a href="#faq">FAQ</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></div>
-            <p class="footer-copy">© 2026 Lurker. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="https://x.com/LurkerWay" target="_blank" rel="noopener" aria-label="Twitter/X">
+                    <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="https://discord.gg/aU8tSjgPx9" target="_blank" rel="noopener" aria-label="Discord">
+                    <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                </a>
+            </div>
+            <p class="footer-copy">© 2025 Lurker. All rights reserved.</p>
         </div>
     </footer>
 
